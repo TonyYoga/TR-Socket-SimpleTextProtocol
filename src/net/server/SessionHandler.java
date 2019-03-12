@@ -26,12 +26,12 @@ public class SessionHandler {
             while (true) {
                 System.out.println("---->");
                 String type = br.readLine();
-                System.out.println("Server read" + type);
+                System.out.println("Server read - " + type);
                 String data = br.readLine();
-                System.out.println("Server data" + data);
+                System.out.println("Server data - " + data);
                 System.out.println("Client: " + socket.getRemoteSocketAddress() + "\n\t" + type + " " + data);
                 ProtocolResponse response = protocol.getResponse(ProtocolRequest.of(type, data));
-                System.out.println("\t" + response);
+                System.out.println("\t" + response.getCode() + " :: " + response.getData());
                 bw.write(response.getCode().toString());
                 bw.newLine();
                 bw.write(response.getData());

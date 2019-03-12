@@ -8,28 +8,30 @@ import java.net.Socket;
 
 public class TcpClient implements Closeable {
     private Socket socket;
-//    private InputStreamReader input;
-//    private OutputStreamWriter output;
+    BufferedWriter bw;
+    BufferedReader br;
 
     public TcpClient(String host, int port) throws IOException {
         socket = new Socket(host, port);
         System.out.println("Client starting on port " + socket.getLocalPort());
-//        output = new OutputStreamWriter(socket.getOutputStream());
-//        input = new InputStreamReader(socket.getInputStream());
+        bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
     }
 
-    protected <T> T sendRequest(String type, String data) {
+    protected ProtocolResponse sendRequest(String type, String data) {
         ProtocolRequest request = ProtocolRequest.of(type, data);
-        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream())))
-        {
+        try {
             bw.write(request.getType());
             bw.newLine();
             bw.write(request.getData());
             bw.newLine();
-            ProtocolResponse response = ProtocolResponse.of(br.readLine(), br.readLine());
-            return (T) response.getData();
+            bw.flush();
+            String responseCode = br.readLine();
+            String responseData = br.readLine();
+            System.out.println("TcpClient read response ->" + responseCode + "|" + responseData);
+            ProtocolResponse response = ProtocolResponse.of(responseCode, responseData);
+            return response;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -37,8 +39,8 @@ public class TcpClient implements Closeable {
 
     @Override
     public void close() throws IOException {
-//        input.close();
-//        output.close();
+        br.close();
+        bw.close();
         socket.close();
     }
 }
