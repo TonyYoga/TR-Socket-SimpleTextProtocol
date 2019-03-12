@@ -60,4 +60,12 @@ public class Person {
         return new Person(Integer.parseInt(args[0]), args[1], args[2], args[3]);
     }
 
+    public static Person of(int id, String fName, String lName, String phone) {
+        Objects.requireNonNull(id);
+        Objects.requireNonNull(fName);
+        Objects.requireNonNull(lName);
+        Objects.requireNonNull(phone);
+        return new Person(id, fName, lName, phone);
+    }
+
 }

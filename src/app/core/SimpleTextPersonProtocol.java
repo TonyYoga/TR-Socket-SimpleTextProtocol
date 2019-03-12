@@ -39,7 +39,7 @@ public class SimpleTextPersonProtocol implements Protocol {
         int id = Integer.parseInt(protocolRequest.getData());
         Person toFind = persons.get(id);
         if (toFind == null) {
-            return ProtocolResponse.of(ProtocolResponse.Code.NOT_FOUND.toString(), String.format("No such person with id %d", id));
+            return ProtocolResponse.of(ProtocolResponse.Code.NOT_FOUND.toString(), null);
         }
         return ProtocolResponse.of(ProtocolResponse.Code.OK.toString(), toFind.toString());
     }
