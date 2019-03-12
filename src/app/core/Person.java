@@ -48,21 +48,16 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", fName='" + fName + '\'' +
-                ", lName='" + lName + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
+        return id + "," + fName + "," + lName + "," + phone;
     }
 
     public static Person fromString(String data) {
         Objects.requireNonNull(data);
         String[] args = data.split(",");
         if (args.length != 4) {
-            throw new IllegalArgumentException("Missing data filelds!")
+            throw new IllegalArgumentException("Missing data filelds!");
         }
         return new Person(Integer.parseInt(args[0]), args[1], args[2], args[3]);
     }
-    
+
 }
