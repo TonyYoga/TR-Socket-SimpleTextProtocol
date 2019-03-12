@@ -8,21 +8,21 @@ import java.net.Socket;
 
 public class TcpClient implements Closeable {
     private Socket socket;
-    private InputStreamReader input;
-    private OutputStreamWriter output;
+//    private InputStreamReader input;
+//    private OutputStreamWriter output;
 
     public TcpClient(String host, int port) throws IOException {
         socket = new Socket(host, port);
         System.out.println("Client starting on port " + socket.getLocalPort());
-        output = new OutputStreamWriter(socket.getOutputStream());
-        input = new InputStreamReader(socket.getInputStream());
+//        output = new OutputStreamWriter(socket.getOutputStream());
+//        input = new InputStreamReader(socket.getInputStream());
 
     }
 
     protected <T> T sendRequest(String type, String data) {
         ProtocolRequest request = ProtocolRequest.of(type, data);
-        try (BufferedWriter bw = new BufferedWriter(output);
-             BufferedReader br = new BufferedReader(input))
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream())))
         {
             bw.write(request.getType());
             bw.newLine();
@@ -37,8 +37,8 @@ public class TcpClient implements Closeable {
 
     @Override
     public void close() throws IOException {
-        input.close();
-        output.close();
+//        input.close();
+//        output.close();
         socket.close();
     }
 }

@@ -18,7 +18,7 @@ public class TcpServer {
     }
 
     public void run() {
-        System.out.println("Servet running on port: " + port);
+        System.out.println("Servet listining on port: " + port);
 
         try {
             while (true) {
