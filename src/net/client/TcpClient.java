@@ -29,7 +29,6 @@ public class TcpClient implements Closeable {
             bw.flush();
             String responseCode = br.readLine();
             String responseData = br.readLine();
-            System.out.println("TcpClient read response ->" + responseCode + "|" + responseData);
             ProtocolResponse response = ProtocolResponse.of(responseCode, responseData);
             return response;
         } catch (Exception e) {

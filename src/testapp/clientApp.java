@@ -29,9 +29,9 @@ public class clientApp {
                     }),
                     Item.of("Get person by id", io -> {
                         int id = cio.readInt("Type Id ");
-                        Person toGet = client.sendGetPersonById(id);
+//                        Person toGet = client.sendGetPersonById(id);
                         //TODO need optimization
-                        String res = toGet != null ? toGet.toString() : String.format("Person with id %d wasn't found", id);
+                        String res = client.sendGetPersonById(id);
                         cio.writeLine(res);
                     }),
                     Item.exit());

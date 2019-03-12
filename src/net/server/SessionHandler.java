@@ -24,12 +24,9 @@ public class SessionHandler {
              BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()))
         ) {
             while (true) {
-                System.out.println("---->");
                 String type = br.readLine();
-                System.out.println("Server read - " + type);
                 String data = br.readLine();
-                System.out.println("Server data - " + data);
-                System.out.println("Client: " + socket.getRemoteSocketAddress() + "\n\t" + type + " " + data);
+                System.out.println("Client: " + socket.getRemoteSocketAddress() + "\t");
                 ProtocolResponse response = protocol.getResponse(ProtocolRequest.of(type, data));
                 System.out.println("\t" + response.getCode() + " :: " + response.getData());
                 bw.write(response.getCode().toString());

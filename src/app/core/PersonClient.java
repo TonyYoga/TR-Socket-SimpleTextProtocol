@@ -12,7 +12,7 @@ public class PersonClient extends TcpClient {
     }
 
     public String sendAddPersonRequest(Person data) {
-        ProtocolResponse response = sendRequest(PersonApi.RequestType.ADD_PERSON, data.toString());
+        ProtocolResponse response = sendRequest(PersonApi.RequestType.ADD_PERSON, data.toStrData());
         return response.getData();
     }
 
@@ -21,11 +21,11 @@ public class PersonClient extends TcpClient {
         return response.getData();
     }
 
-    public Person sendGetPersonById(int id) {
+    public String sendGetPersonById(int id) {
         //TODO need optimization
         ProtocolResponse response = sendRequest(PersonApi.RequestType.GET_BY_ID, String.valueOf(id));
-        Person curr = response.getCode() == ProtocolResponse.Code.OK ? Person.fromString(response.getData()) : null;
-        return curr;
+        String res = response.getCode() == ProtocolResponse.Code.OK ? Person.fromString(response.getData()).toString() : response.getData();
+        return res;
     }
 
 }

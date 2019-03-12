@@ -41,7 +41,7 @@ public class SimpleTextPersonProtocol implements Protocol {
         if (toFind == null) {
             return ProtocolResponse.of(ProtocolResponse.Code.NOT_FOUND.toString(), String.format("No such person with id %d", id));
         }
-        return ProtocolResponse.of(ProtocolResponse.Code.OK.toString(), toFind.toString());
+        return ProtocolResponse.of(ProtocolResponse.Code.OK.toString(), toFind.toStrData());
     }
 
     private ProtocolResponse removeById(ProtocolRequest protocolRequest) {

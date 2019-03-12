@@ -46,9 +46,19 @@ public class Person {
         return id;
     }
 
+
+    public String toStrData() {
+        return id + "," + fName + "," + lName + "," + phone;
+    }
+
     @Override
     public String toString() {
-        return id + "," + fName + "," + lName + "," + phone;
+        return "Person{" +
+                "id=" + id +
+                ", fName='" + fName + '\'' +
+                ", lName='" + lName + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
     }
 
     public static Person fromString(String data) {
